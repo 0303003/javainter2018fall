@@ -16,4 +16,17 @@ public final class ShoppingCartService {
         shoppingCart.add(product, quantity);
         shoppingCartRepository.persistShoppingCart(shoppingCart);
     }
+
+    public void setQuantityOfProductInCurrentShoppingCart(Product product, int quantity) {
+        ShoppingCart shoppingCart = shoppingCartRepository.fetchShoppingCart();
+        shoppingCart.deleteItem(product);
+        shoppingCart.add(product, quantity);
+        shoppingCartRepository.persistShoppingCart(shoppingCart);
+    }
+
+    public void clear() {
+        ShoppingCart shoppingCart = shoppingCartRepository.fetchShoppingCart();
+        shoppingCart.clear();
+        shoppingCartRepository.persistShoppingCart(shoppingCart);
+    }
 }

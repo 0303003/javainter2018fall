@@ -12,8 +12,12 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 public class ShoppingCart {
     private final Map<Product, Item> items = new LinkedHashMap<>();
 
-    public List<Item> items() {
+    public List<Item> getItems() {
         return ImmutableList.copyOf(items.values());
+    }
+
+    ShoppingCart(){
+
     }
 
     ShoppingCart add(Product product, int quantity) {
@@ -26,6 +30,40 @@ public class ShoppingCart {
         return this;
     }
 
+    public double total() {
+        double totalPrice = 0;
+       for(Item item: getItems()){
+           totalPrice += item.product.getPrice() * item.getQuantity();
+       }
+           return totalPrice;
+    }
+
+    public void deleteItem(Product product) {
+        items.remove(product);
+    }
+
+    public void clear() {
+        items.clear();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoppingCart that = (ShoppingCart) o;
+        return Objects.equals(items, that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(items);
+    }
+
+    @Override
+    public String toString() {
+        return toStringHelper(this).add("items", this.getItems()).toString();
+    }
+
     static class Item {
         private final Product product;
         private final int quantity;
@@ -33,6 +71,14 @@ public class ShoppingCart {
         public Item(Product product, int quantity) {
             this.product = product;
             this.quantity = quantity;
+        }
+
+        public Product getProduct() {
+            return product;
+        }
+
+        public int getQuantity() {
+            return quantity;
         }
 
         @Override
