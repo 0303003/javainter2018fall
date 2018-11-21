@@ -1,5 +1,7 @@
 package org.redischool.fall2018project.usecases.shoppingcart;
 
+import com.google.common.collect.ImmutableList;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,7 +16,7 @@ class ShoppingCartServiceTest {
     void cartShouldBeInitiallyEmpty() {
         ShoppingCart result = subject.getCurrentShoppingCart();
 
-        assertEquals(List.of(), result.getItems());
+        assertEquals(ImmutableList.of(), result.getItems());
     }
 
     @Test
@@ -25,7 +27,7 @@ class ShoppingCartServiceTest {
         subject.addToCurrentShoppingCart(product, quantity);
         ShoppingCart result = subject.getCurrentShoppingCart();
 
-        assertEquals(List.of(new ShoppingCart.Item(product, quantity)), result.getItems());
+        assertEquals(ImmutableList.of(new ShoppingCart.Item(product, quantity)), result.getItems());
     }
 
     @Test
@@ -36,7 +38,7 @@ class ShoppingCartServiceTest {
         subject.addToCurrentShoppingCart(product, 2);
         ShoppingCart result = subject.getCurrentShoppingCart();
 
-        assertEquals(List.of(new ShoppingCart.Item(product, 3)), result.getItems());
+        assertEquals(ImmutableList.of(new ShoppingCart.Item(product, 3)), result.getItems());
     }
 
     @Test
@@ -48,7 +50,7 @@ class ShoppingCartServiceTest {
         subject.addToCurrentShoppingCart(product2, 1);
         ShoppingCart result = subject.getCurrentShoppingCart();
 
-        assertEquals(List.of(new ShoppingCart.Item(product1, 1), new ShoppingCart.Item(product2, 1)), result.getItems());
+        assertEquals(ImmutableList.of(new ShoppingCart.Item(product1, 1), new ShoppingCart.Item(product2, 1)), result.getItems());
     }
 
     @Test
@@ -58,7 +60,7 @@ class ShoppingCartServiceTest {
 
         ShoppingCart result = subject.getCurrentShoppingCart();
 
-        assertEquals(List.of(new ShoppingCart.Item(product, 1)), result.getItems());
+        assertEquals(ImmutableList.of(new ShoppingCart.Item(product, 1)), result.getItems());
     }
     @Test
     void serviceShouldComputeTotalOfEmptyCartAsZero(){
